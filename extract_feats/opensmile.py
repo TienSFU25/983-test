@@ -3,6 +3,8 @@ import csv
 import sys
 import time
 import pandas as pd
+import pdb
+
 from sklearn.preprocessing import StandardScaler
 from typing import Tuple
 from sklearn.externals import joblib
@@ -104,6 +106,7 @@ def get_data(data_path: str, feature_path: str, train: bool):
         # 遍历文件夹
         for i, directory in enumerate(config.CLASS_LABELS):
             sys.stderr.write("Started reading folder %s\n" % directory)
+            # pdb.set_trace()
             os.chdir(directory)
 
             # label_name = directory

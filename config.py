@@ -3,7 +3,7 @@
 class config:
 
     # 数据集路径
-    DATA_PATH = 'datasets/CASIA/6'
+    DATA_PATH = 'datasets/'
     # 情感标签
     CLASS_LABELS = ("angry", "fear", "happy", "neutral", "sad", "surprise")
     # CLASS_LABELS = ("positive", "negative", "neutral")
@@ -15,7 +15,7 @@ class config:
     # Opensmile 标准特征集
     CONFIG = 'IS10_paraling'
     # Opensmile 安装路径
-    OPENSMILE_PATH = '/Users/zou/opensmile-2.3.0'
+    OPENSMILE_PATH = '/content/opensmile'
     # 每个特征集的特征数量
     FEATURE_NUM = {
         'IS09_emotion': 384,
