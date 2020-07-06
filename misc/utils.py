@@ -6,7 +6,7 @@ from sklearn.externals import joblib
 import librosa
 import librosa.display
 import scipy.io.wavfile as wav
-import pyaudio
+# import pyaudio
 import wave
 
 from config import config
@@ -71,17 +71,18 @@ play_audio(): 播放语音
 '''
 def play_audio(file_path: str):
     # 语音播放
-    p = pyaudio.PyAudio()
-    f = wave.open(file_path, 'rb')
-    stream = p.open(format = p.get_format_from_width(f.getsampwidth()),
-                    channels = f.getnchannels(),
-                    rate = f.getframerate(),
-                    output = True)
-    data = f.readframes(f.getparams()[3])
-    stream.write(data)
-    stream.stop_stream()
-    stream.close()
-    f.close()
+    print("Supposed to be playing " + file_path)
+    # p = pyaudio.PyAudio()
+    # f = wave.open(file_path, 'rb')
+    # stream = p.open(format = p.get_format_from_width(f.getsampwidth()),
+    #                 channels = f.getnchannels(),
+    #                 rate = f.getframerate(),
+    #                 output = True)
+    # data = f.readframes(f.getparams()[3])
+    # stream.write(data)
+    # stream.stop_stream()
+    # stream.close()
+    # f.close()
     
     
 '''

@@ -3,7 +3,7 @@
 class config:
 
     # 数据集路径
-    DATA_PATH = 'datasets/'
+    DATA_PATH = '/content/opensmile-train/'
     # 情感标签
     CLASS_LABELS = ("angry", "fear", "happy", "neutral", "sad", "surprise")
     # CLASS_LABELS = ("positive", "negative", "neutral")
