@@ -39,3 +39,4 @@ class config:
 
     # 模型存储路径
     MODEL_PATH = 'checkpoints/'
+    CHECKPOINT_PATH = 'cp/'

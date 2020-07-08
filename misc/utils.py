@@ -26,9 +26,10 @@ def load_model(load_model_name: str, model_name: str):
     
     if(model_name == 'lstm'):
         # 加载json
-        model_path = config.MODEL_PATH + load_model_name + '.h5'
-        model_json_path = config.MODEL_PATH + load_model_name + '.json'
-        
+        model_path = config.CHECKPOINT_PATH + load_model_name + '.h5'
+        model_json_path = config.CHECKPOINT_PATH + load_model_name + '.json'
+        print('Loading h5 weights at ' + model_path)
+
         json_file = open(model_json_path, 'r')
         loaded_model_json = json_file.read()
         json_file.close()
@@ -38,7 +39,7 @@ def load_model(load_model_name: str, model_name: str):
         model.load_weights(model_path)
     
     elif(model_name == 'svm' or model_name == 'mlp'):
-        model_path = config.MODEL_PATH + load_model_name + '.m'
+        model_path = config.CHECKPOINT_PATH + load_model_name + '.m'
         model = joblib.load(model_path)
 
     return model
