@@ -1,13 +1,16 @@
 # 参数配置
 
-class config:
+IS_RAVDESS = True
 
+class config:
     # 数据集路径
     DATA_PATH = '/content/opensmile-train/'
     # 情感标签
     CLASS_LABELS = ("angry", "fear", "happy", "neutral", "sad", "surprise")
-    # CLASS_LABELS = ("positive", "negative", "neutral")
-    # CLASS_LABELS = ("angry", "boredom", "disgust", "fear", "happy", "neutral", "sad")
+
+    if IS_RAVDESS:
+        # Emotion (01 = neutral, 02 = calm, 03 = happy, 04 = sad, 05 = angry, 06 = fearful, 07 = disgust, 08 = surprised).
+        CLASS_LABELS = ("angry", "fear", "happy", "neutral", "sad", "surprise")
 
     # LSTM 的训练 epoch 数
     epochs = 20
@@ -27,11 +30,12 @@ class config:
     }
 
     # 特征存储路径
-    FEATURE_PATH = 'features/6-category/'
-    # 训练特征存储路径（Opensmile）
-    TRAIN_FEATURE_PATH_OPENSMILE = FEATURE_PATH + 'train_opensmile_casia.csv'
-    # 预测特征存储路径（Opensmile）
-    PREDICT_FEATURE_PATH_OPENSMILE = FEATURE_PATH + 'test_opensmile_casia.csv'
+    FEATURE_PATH = 'extracted-features/'
+
+    # WILL BE OVERWRITTEN
+    TRAIN_FEATURE_PATH_OPENSMILE = FEATURE_PATH + 'train_banana.csv'
+    PREDICT_FEATURE_PATH_OPENSMILE = FEATURE_PATH + 'test_banana.csv'
+
     # 训练特征存储路径（librosa）
     TRAIN_FEATURE_PATH_LIBROSA = FEATURE_PATH + 'train_librosa_casia.p'
     # 预测特征存储路径（librosa）
