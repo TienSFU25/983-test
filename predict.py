@@ -19,7 +19,7 @@ predict(): 预测音频情感
 '''
 def predict(model, model_name: str, file_path: str, feature_method: str = 'o'):
     
-    file_path = os.path.dirname(os.path.abspath(__file__)) + '/' + file_path
+    file_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), file_path))
     play_audio(file_path)
 
     if(feature_method == 'o'):
@@ -38,9 +38,9 @@ def predict(model, model_name: str, file_path: str, feature_method: str = 'o'):
         result = np.argmax(result)
 
     result_prob = model.predict_proba(test_feature)[0]
-    print('Recogntion: ', config.CLASS_LABELS[int(result)])
-    print('Probability: ', result_prob)
-    Radar(result_prob)
+    print('Recognition: ', config.CLASS_LABELS[int(result)])
+    # print('Probability: ', result_prob)
+    # Radar(result_prob)
 
 
 if __name__ == '__main__':

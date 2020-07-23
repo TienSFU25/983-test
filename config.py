@@ -38,5 +38,5 @@ class config:
     PREDICT_FEATURE_PATH_LIBROSA = FEATURE_PATH + 'test_librosa_casia.p'
 
     # 模型存储路径
-    MODEL_PATH = 'checkpoints/'
-    CHECKPOINT_PATH = 'cp/'
+    SAVE_PATH = 'save/'
+    LOAD_PATH = 'cp/'

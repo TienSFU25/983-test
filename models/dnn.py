@@ -27,13 +27,13 @@ class DNN_Model(Common_Model):
         print(self.model.summary(), file = sys.stderr)
 
     '''
-    save_model(): 将模型权重以 model_name.h5 和 model_name.json 命名存储在 config.MODEL_PATH 路径下
+    save_model(): 将模型权重以 model_name.h5 和 model_name.json 命名存储在 config.SAVE_PATH 路径下
     '''
     def save_model(self, model_name):
-        h5_save_path = config.CHECKPOINT_PATH + model_name + '.h5'
+        h5_save_path = config.SAVE_PATH + model_name + '.h5'
         self.model.save_weights(h5_save_path)
 
-        save_json_path = config.CHECKPOINT_PATH + model_name + '.json'
+        save_json_path = config.SAVE_PATH + model_name + '.json'
         with open(save_json_path, "w") as json_file:
             json_file.write(self.model.to_json())
 

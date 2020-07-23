@@ -51,13 +51,12 @@ def train(model_name: str, save_model_name: str, feature_method: str = 'o'):
     print('------------------------------ End Training ------------------------------')
 
     # 验证模型
-    print(x_test.shape, y_test.shape)
-    print(y_test)
     model.evaluate(x_test, y_test)
+
     # 保存训练好的模型
     print('saving model at ' + save_model_name)
     model.save_model(save_model_name)
-    print("Donezo")
+    # print("Donezo")
 
 
 if __name__ == '__main__':

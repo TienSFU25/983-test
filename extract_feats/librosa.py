@@ -162,7 +162,7 @@ def load_feature(feature_path: str, train: bool):
         # 标准化数据 
         scaler = StandardScaler().fit(X)
         # 保存标准化模型
-        joblib.dump(scaler, config.MODEL_PATH + 'SCALER_LIBROSA.m')
+        joblib.dump(scaler, config.SAVE_PATH + 'SCALER_LIBROSA.m')
         X = scaler.transform(X)
 
         x_train, x_test, y_train, y_test = train_test_split(X, Y, test_size = 0.2, random_state = 42)
@@ -171,7 +171,7 @@ def load_feature(feature_path: str, train: bool):
     else:
         # 标准化数据
         # 加载标准化模型
-        scaler = joblib.load(config.MODEL_PATH + 'SCALER_LIBROSA.m')
+        scaler = joblib.load(config.LOAD_PATH + 'SCALER_LIBROSA.m')
         X = scaler.transform(X)
         return X
 

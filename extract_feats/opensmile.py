@@ -59,7 +59,7 @@ def load_feature(feature_path: str, train: bool):
         # 标准化数据 
         scaler = StandardScaler().fit(X)
         # 保存标准化模型
-        joblib.dump(scaler, config.MODEL_PATH + 'SCALER_OPENSMILE.m')
+        joblib.dump(scaler, config.SAVE_PATH + 'SCALER_OPENSMILE.m')
         X = scaler.transform(X)
 
         # 划分训练集和测试集
@@ -68,7 +68,7 @@ def load_feature(feature_path: str, train: bool):
     else:
         # 标准化数据
         # 加载标准化模型
-        scaler = joblib.load(config.MODEL_PATH + 'SCALER_OPENSMILE.m')
+        scaler = joblib.load(config.LOAD_PATH + 'SCALER_OPENSMILE.m')
         X = scaler.transform(X)
         return X
 

@@ -14,10 +14,10 @@ class MLModel(Common_Model):
         super(MLModel, self).__init__(**params)
 
     '''
-    save_model(): 将模型以 model_name 命名存储在 config.MODEL_PATH 路径下
+    save_model(): 将模型以 model_name 命名存储在 config.SAVE_PATH 路径下
     '''
     def save_model(self, model_name):
-        save_path = config.MODEL_PATH + model_name + '.m'
+        save_path = config.SAVE_PATH + model_name + '.m'
         pickle.dump(self.model, open(save_path, "wb"))
 
     '''
