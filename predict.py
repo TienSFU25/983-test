@@ -33,6 +33,9 @@ def predict(model, model_name: str, file_path: str, feature_method: str = 'o'):
         # 二维数组转三维（samples, time_steps, input_dim）
         test_feature = np.reshape(test_feature, (test_feature.shape[0], 1, test_feature.shape[1]))
     
+    print(model.summary())
+    print("Test feature shape is", test_feature.shape)
+
     result = model.predict(test_feature)
     if(model_name == 'lstm'):
         result = np.argmax(result)

@@ -10,13 +10,15 @@ class config:
 
     if IS_RAVDESS:
         # Emotion (01 = neutral, 02 = calm, 03 = happy, 04 = sad, 05 = angry, 06 = fearful, 07 = disgust, 08 = surprised).
-        CLASS_LABELS = ("angry", "fear", "happy", "neutral", "sad", "surprise")
+        CLASS_LABELS = ("neutral", "calm", "happy", "sad", "angry", "fearful", "disgust", "surprised")
 
     # LSTM 的训练 epoch 数
     epochs = 20
 
     # Opensmile 标准特征集
     CONFIG = 'IS10_paraling'
+    # CONFIG = 'IS09_emotion'
+
     # Opensmile 安装路径
     OPENSMILE_PATH = '/content/opensmile'
     # 每个特征集的特征数量
@@ -42,5 +44,5 @@ class config:
     PREDICT_FEATURE_PATH_LIBROSA = FEATURE_PATH + 'test_librosa_casia.p'
 
     # 模型存储路径
-    SAVE_PATH = 'save/'
-    LOAD_PATH = 'cp/'
+    SAVE_PATH = 'our-shit/'
+    LOAD_PATH = 'our-shit/'
