@@ -45,4 +45,4 @@ class config:
 
     # 模型存储路径
     SAVE_PATH = 'our-shit/'
-    LOAD_PATH = 'our-shit/'
+    LOAD_PATH = 'cp/'

@@ -26,7 +26,7 @@ get_feature_opensmile(): Opensmile 提取一个音频的特征
 def get_feature_opensmile(filepath: str):
     # Opensmile 命令
     BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir))
-    cmd = 'cd ' + config.OPENSMILE_PATH + ' && ./SMILExtract -C config/' + config.CONFIG + '.conf -I ' + filepath + ' -O ' + BASE_DIR + '/' + config.FEATURE_PATH + 'single_feature.csv'
+    cmd = 'cd ' + config.OPENSMILE_PATH + ' && ./SMILExtract -C config/' + config.CONFIG + '.conf -I "' + filepath + '" -O ' + BASE_DIR + '/' + config.FEATURE_PATH + 'single_feature.csv'
     print("Opensmile cmd: ", cmd)
     os.system(cmd)
     
