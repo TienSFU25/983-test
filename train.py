@@ -18,11 +18,12 @@ train(): 训练模型
 输出: 
     model: 训练好的模型
 '''
-def train(model_name: str, save_model_name: str, feature_method: str = 'o'):
+def train(model_name: str, save_model_name: str, input_path:str, feature_method: str = 'o'):
     
     # 加载被 preprocess.py 预处理好的特征
     if(feature_method == 'o'):
-        x_train, x_test, y_train, y_test = of.load_feature(feature_path = config.TRAIN_FEATURE_PATH_OPENSMILE, train = True)
+        input_file = os.path.join(input_path, config.PREPROCESS_OPENSMILE_FILENAME)
+        x_train, x_test, y_train, y_test = of.load_feature(feature_path = input_file, train = True)
 
     elif(feature_method == 'l'):
         x_train, x_test, y_train, y_test = lf.load_feature(feature_path = config.TRAIN_FEATURE_PATH_LIBROSA, train = True)
@@ -62,6 +63,6 @@ def train(model_name: str, save_model_name: str, feature_method: str = 'o'):
 if __name__ == '__main__':
 
     opt = opts.parse_train()
-    train(model_name = opt.model_type, save_model_name = opt.model_name, feature_method = opt.feature)
+    train(model_name = opt.model_type, save_model_name = opt.model_name, input_path = opt.input_path, feature_method = opt.feature)
     
     # train(model_name = "lstm", save_model_name = "LSTM_OPENSMILE", feature_method = 'l')

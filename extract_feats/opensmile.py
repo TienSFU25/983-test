@@ -23,14 +23,14 @@ get_feature_opensmile(): Opensmile 提取一个音频的特征
     该音频的特征向量
 '''
 
-def get_feature_opensmile(filepath: str):
+def get_feature_opensmile(filepath: str, out_path: str):
     # Opensmile 命令
     BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir))
-    cmd = 'cd ' + config.OPENSMILE_PATH + ' && ./SMILExtract -C config/' + config.CONFIG + '.conf -I "' + filepath + '" -O ' + BASE_DIR + '/' + config.FEATURE_PATH + 'single_feature.csv'
+    cmd = 'cd ' + config.OPENSMILE_PATH + ' && ./SMILExtract -C config/' + config.CONFIG + '.conf -I "' + filepath + '" -O ' + BASE_DIR + '/' + out_path + 'single_feature.csv'
     print("Opensmile cmd: ", cmd)
     os.system(cmd)
     
-    reader = csv.reader(open(BASE_DIR + '/' + config.FEATURE_PATH + 'single_feature.csv','r'))
+    reader = csv.reader(open(BASE_DIR + '/' + out_path + 'single_feature.csv','r'))
     rows = [row for row in reader]
     last_line = rows[-1]
     return last_line[1: config.FEATURE_NUM[config.CONFIG] + 1]
@@ -88,15 +88,16 @@ get_data():
 '''
 
 # Opensmile 提取特征
-def get_data(data_path: str, feature_path: str, train: bool):
-
-    writer = csv.writer(open(feature_path, 'w'))
+# path is directory, filename is "X.csv"
+def get_data(data_path: str, feature_path: str, feature_filename: str, train: bool):
+    feature_file = os.path.join(feature_path, feature_filename)
+    writer = csv.writer(open(feature_file, 'w'))
     first_row = ['label']
     for i in range(1, config.FEATURE_NUM[config.CONFIG] + 1):
         first_row.append(str(i))
     writer.writerow(first_row)
 
-    writer = csv.writer(open(feature_path, 'a+'))
+    writer = csv.writer(open(feature_file, 'a+'))
     print('Opensmile extracting...')
 
     if train == True:
@@ -119,7 +120,7 @@ def get_data(data_path: str, feature_path: str, train: bool):
                 filepath = os.getcwd() + '/' + filename
                 
                 # 提取该音频的特征
-                feature_vector = get_feature_opensmile(filepath)
+                feature_vector = get_feature_opensmile(filepath, feature_path)
                 feature_vector.insert(0, label)
                 # 把每个音频的特征整理到一个 csv 文件中
                 writer.writerow(feature_vector)
@@ -129,7 +130,7 @@ def get_data(data_path: str, feature_path: str, train: bool):
         os.chdir(cur_dir)
     
     else:
-        feature_vector = get_feature_opensmile(data_path)
+        feature_vector = get_feature_opensmile(data_path, feature_path)
         feature_vector.insert(0, '-1')
         writer.writerow(feature_vector)
 

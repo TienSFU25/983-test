@@ -93,7 +93,6 @@ class DNN_Model(Common_Model):
 
         return np.argmax(self.model.predict(sample), axis=1)
 
-
     def make_model(self):
         raise NotImplementedError()
 

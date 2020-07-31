@@ -66,7 +66,6 @@ class Common_Model(object):
         y_test: 标签
     '''
     def evaluate(self, x_test, y_test):
-
         predictions = self.predict(x_test)
         print(y_test)
         print(predictions)
