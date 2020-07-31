@@ -32,17 +32,17 @@ class config:
     PREPROCESS_OPENSMILE_FILENAME = 'preprocess.csv'
 
     # 特征存储路径
-    FFEATURE_PATH = 'extracted-features/'
+    # FFEATURE_PATH = 'extracted-features/'
 
     # # WILL BE OVERWRITTEN
     # TRAIN_FEATURE_PATH_OPENSMILE = FEATURE_PATH + 'train_banana.csv'
     # PREDICT_FEATURE_PATH_OPENSMILE = FEATURE_PATH + 'test_banana.csv'
 
     # 训练特征存储路径（librosa）
-    TRAIN_FEATURE_PATH_LIBROSA = FFEATURE_PATH + 'train_librosa_casia.p'
+    # TRAIN_FEATURE_PATH_LIBROSA = FFEATURE_PATH + 'train_librosa_casia.p'
     # 预测特征存储路径（librosa）
-    PREDICT_FEATURE_PATH_LIBROSA = FFEATURE_PATH + 'test_librosa_casia.p'
+    # PREDICT_FEATURE_PATH_LIBROSA = FFEATURE_PATH + 'test_librosa_casia.p'
 
     # 模型存储路径
-    SAVE_PATH = 'our-shit/'
-    LOAD_PATH = 'cp/'
+    SAVE_PATH = 'ravdess-joe/'
+    LOAD_PATH = 'ravdess-joe/'

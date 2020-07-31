@@ -139,4 +139,4 @@ def get_data(data_path: str, feature_path: str, feature_filename: str, train: bo
     # 一个玄学 bug 的暂时性解决方案
     # 这里无法直接加载除了 IS10_paraling 以外的其他特征集的预测数据特征，非常玄学
     if(train == True):
-        return load_feature(feature_path, train = train)
+        return load_feature(feature_file, train = train)

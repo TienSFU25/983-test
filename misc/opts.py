@@ -25,7 +25,7 @@ def parse_prepro():
         '-o', 
         '--out-path', 
         type = str, 
-        default = 'extracted_features/',
+        default = 'out/',
         dest = 'out_path', 
         help = "Where to output extracted features for preprocessing")
 
@@ -66,7 +66,7 @@ def parse_train():
         '-i', 
         '--input-path', 
         type = str, 
-        default = 'extracted_features/',
+        default = 'in/',
         dest = 'input_path', 
         help = "Location of preprocessed features")
 
@@ -76,7 +76,7 @@ def parse_train():
 
 def parse_pred():
 
-    paser = argparse.ArgumentParser(description = 'Speech Emotion Recognition')
+    parser = argparse.ArgumentParser(description = 'Speech Emotion Recognition')
 
     # svm / mlp / lstm
     parser.add_argument(
@@ -115,7 +115,7 @@ def parse_pred():
         '-p', 
         '--out-path', 
         type = str, 
-        default = 'extracted_features/',
+        default = 'nobody-gives-a-shit/',
         dest = 'out_path', 
         help = "Where to write intermediate features. Find way to put this in temp folder")
 

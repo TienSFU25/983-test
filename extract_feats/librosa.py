@@ -189,6 +189,7 @@ get_data():
     train = True: 训练数据、测试数据特征和对应的标签
     train = False: 预测数据特征
 '''
+# data_path: str, feature_path: str, feature_filename: str, train: bool):
 def get_data(data_path: str, feature_path: str, train: bool):
     
     if(train == True):

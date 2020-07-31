@@ -1,6 +1,8 @@
 import numpy as np
 import os
 from misc.utils import load_model, Radar, play_audio
+from pathlib import Path
+
 import extract_feats.opensmile as of
 import extract_feats.librosa as lf
 from config import config
@@ -18,18 +20,20 @@ predict(): 预测音频情感
 输出: 预测结果和置信概率
 '''
 def predict(model, model_name: str, file_path: str, out_path: str, feature_method: str = 'o'):
-    
+    Path(out_path).mkdir(parents=True, exist_ok=True)
+
     file_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), file_path))
     play_audio(file_path)
 
+    temp_filename = "test_banana.csv"
+    temp_path = os.path.join(out_path, temp_filename)
+
     if(feature_method == 'o'):
         # 一个玄学 bug 的暂时性解决方案
-        temp_filename = "test_banana.csv"
-        temp_path = os.path.join(out_path, temp_filename)
-        of.get_data(data_path=file_path, feature_path=out_path, feature_filename=temp_path, train=False)
+        of.get_data(data_path=file_path, feature_path=out_path, feature_filename=temp_filename, train=False)
         test_feature = of.load_feature(temp_path, train = False)
     elif(feature_method == 'l'):
-        test_feature = lf.get_data(file_path, config.PREDICT_FEATURE_PATH_LIBROSA, train = False)
+        test_feature = lf.get_data(file_path, temp_path, train = False)
     
     if(model_name == 'lstm'):
         # 二维数组转三维（samples, time_steps, input_dim）
@@ -50,7 +54,6 @@ def predict(model, model_name: str, file_path: str, out_path: str, feature_metho
 
 
 if __name__ == '__main__':
-
     opt = opts.parse_pred()
 
     # 加载模型
