@@ -14,8 +14,8 @@ def parse_prepro():
         help = "The method for features extracting: use 'o' to use opensmile or use 'l' to use librosa.")
 
     parser.add_argument(
-        '-p', 
-        '--data-path', 
+        '-i', 
+        '--input-path', 
         type = str, 
         default = '/content/opensmile-train/',
         dest = 'data_path', 
@@ -42,7 +42,7 @@ def parse_train():
         '-mt', 
         '--model_type', 
         type = str, 
-        default = 'svm',
+        default = 'lstm',
         dest = 'model_type', 
         help = "The type of model (svm, mlp or lstm).")
 
@@ -83,7 +83,7 @@ def parse_pred():
         '-mt', 
         '--model_type', 
         type = str, 
-        default = 'svm',
+        default = 'lstm',
         dest = 'model_type', 
         help = "The type of model (svm, mlp or lstm).")
 
@@ -94,7 +94,7 @@ def parse_pred():
         default = 'default',
         dest = 'model_name', 
         help = "The name of saved (h5) model file.")
-    
+
     parser.add_argument(
         '-f', 
         '--feature', 
@@ -112,7 +112,7 @@ def parse_pred():
         help = "The path of audio which you want to predict.")
 
     parser.add_argument(
-        '-p', 
+        '-o', 
         '--out-path', 
         type = str, 
         default = 'nobody-gives-a-shit/',
