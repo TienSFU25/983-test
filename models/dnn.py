@@ -2,6 +2,8 @@
 import sys
 import numpy as np
 import keras
+import os
+
 from keras import Sequential
 from keras.layers import LSTM as KERAS_LSTM, Dense, Dropout
 from .common import Common_Model
@@ -27,13 +29,14 @@ class DNN_Model(Common_Model):
         print(self.model.summary(), file = sys.stderr)
 
     '''
-    save_model(): 将模型权重以 model_name.h5 和 model_name.json 命名存储在 config.SAVE_PATH 路径下
+    save_model(): 将模型权重以 model_name.h5 和 model_name.json 命名存储在 save path 路径下
     '''
-    def save_model(self, model_name):
-        h5_save_path = config.SAVE_PATH + model_name + '.h5'
+    def save_model(self, model_name, model_path):
+        h5_save_path = os.path.join(model_path, model_name + '.h5')
+        print(f'Saving model at {h5_save_path}')
         self.model.save_weights(h5_save_path)
 
-        save_json_path = config.SAVE_PATH + model_name + '.json'
+        save_json_path = os.path.join(model_path, model_name + '.json')
         with open(save_json_path, "w") as json_file:
             json_file.write(self.model.to_json())
 

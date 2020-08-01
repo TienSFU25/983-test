@@ -18,7 +18,7 @@ def parse_prepro():
         '--input-path', 
         type = str, 
         default = '/content/opensmile-train/',
-        dest = 'data_path', 
+        dest = 'in_path', 
         help = "Folder of .wav files")
 
     parser.add_argument(
@@ -110,6 +110,14 @@ def parse_pred():
         default = 'default.wav',
         dest = 'audio', 
         help = "The path of audio which you want to predict.")
+
+    parser.add_argument(
+        '-i', 
+        '--in-path', 
+        type = str, 
+        default = 'in/',
+        dest = 'in_path', 
+        help = "Where to load the dang model")
 
     parser.add_argument(
         '-o', 

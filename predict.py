@@ -19,7 +19,7 @@ predict(): 预测音频情感
 
 输出: 预测结果和置信概率
 '''
-def predict(model, model_name: str, file_path: str, out_path: str, feature_method: str = 'o'):
+def predict(model, model_name: str, file_path: str, x: str, out_path: str, feature_method: str = 'o'):
     Path(out_path).mkdir(parents=True, exist_ok=True)
 
     file_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), file_path))
@@ -31,7 +31,7 @@ def predict(model, model_name: str, file_path: str, out_path: str, feature_metho
     if(feature_method == 'o'):
         # 一个玄学 bug 的暂时性解决方案
         of.get_data(data_path=file_path, feature_path=out_path, feature_filename=temp_filename, train=False)
-        test_feature = of.load_feature(temp_path, train = False)
+        test_feature = of.load_feature(temp_path, train = False, scaler_path=model_path)
     elif(feature_method == 'l'):
         test_feature = lf.get_data(file_path, temp_path, train = False)
     
@@ -57,8 +57,8 @@ if __name__ == '__main__':
     opt = opts.parse_pred()
 
     # 加载模型
-    model = load_model(load_model_name = opt.model_name, model_name = opt.model_type)
-    predict(model, model_name = opt.model_type, file_path = opt.audio, out_path=opt.out_path, feature_method = opt.feature)
+    model = load_model(load_model_name = opt.model_name, model_name = opt.model_type, model_path=opt.in_path)
+    predict(model, model_name = opt.model_type, file_path = opt.audio, model_path=opt.in_path, out_path=opt.out_path, feature_method = opt.feature)
 
     # model = load_model(load_model_name = "LSTM_OPENSMILE", model_name = "lstm")
     # predict(model, model_name = "lstm", file_path = 'test/angry.wav', feature_method = 'l')

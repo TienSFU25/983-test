@@ -8,6 +8,7 @@ import librosa.display
 import scipy.io.wavfile as wav
 # import pyaudio
 import wave
+import os
 
 from config import config
 
@@ -22,13 +23,13 @@ load_model():
 输出:
     model: 加载好的模型
 '''
-def load_model(load_model_name: str, model_name: str):
+def load_model(load_model_name: str, model_name: str, model_path: str):
     
     if(model_name == 'lstm'):
         # 加载json
-        model_path = config.LOAD_PATH + load_model_name + '.h5'
-        model_json_path = config.LOAD_PATH + load_model_name + '.json'
-        print('Loading h5 weights at ' + model_path)
+        model_h5_path = os.path.join(model_path, load_model_name + '.h5')
+        model_json_path = os.path.join(model_path, load_model_name + '.json')
+        print('Loading h5 weights at ' + model_h5_path)
 
         json_file = open(model_json_path, 'r')
         loaded_model_json = json_file.read()
@@ -36,11 +37,11 @@ def load_model(load_model_name: str, model_name: str):
         model = model_from_json(loaded_model_json)
 
         # 加载权重
-        model.load_weights(model_path)
+        model.load_weights(model_h5_path)
     
     elif(model_name == 'svm' or model_name == 'mlp'):
-        model_path = config.LOAD_PATH + load_model_name + '.m'
-        model = joblib.load(model_path)
+        model_m_path = os.path.join(model_path, load_model_name + '.m')
+        model = joblib.load(model_m_path)
 
     return model
 

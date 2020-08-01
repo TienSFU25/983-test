@@ -1,14 +1,10 @@
 # 参数配置
 
-IS_RAVDESS = True
-
 class config:
     # 情感标签
-    CLASS_LABELS = ("angry", "fear", "happy", "neutral", "sad", "surprise")
+    # CLASS_LABELS = ("angry", "fear", "happy", "neutral", "sad", "surprise")
 
-    if IS_RAVDESS:
-        # Emotion (01 = neutral, 02 = calm, 03 = happy, 04 = sad, 05 = angry, 06 = fearful, 07 = disgust, 08 = surprised).
-        CLASS_LABELS = ("neutral", "calm", "happy", "sad", "angry", "fear", "disgust", "surprise")
+    CLASS_LABELS = ("neutral", "calm", "happy", "sad", "angry", "fear", "disgust", "surprise")
 
     # LSTM 的训练 epoch 数
     epochs = 20
@@ -44,5 +40,5 @@ class config:
     # PREDICT_FEATURE_PATH_LIBROSA = FFEATURE_PATH + 'test_librosa_casia.p'
 
     # 模型存储路径
-    SAVE_PATH = 'ravdess-joe/'
-    LOAD_PATH = 'ravdess-joe/'
+    # SAVE_PATH = 'ravdess-joe/'
+    # LOAD_PATH = 'ravdess-joe/'

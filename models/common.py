@@ -53,9 +53,9 @@ class Common_Model(object):
         return self.model.predict_proba(samples)
 
     '''
-    save_model(): 将模型以 model_name 命名存储在 config.SAVE_PATH 路径下
+    save_model(): 将模型以 model_name 命名存储在 save path 路径下
     '''
-    def save_model(self, model_name: str):
+    def save_model(self, model_name: str, model_path: str):
         raise NotImplementedError()
 
     '''

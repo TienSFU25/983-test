@@ -24,10 +24,10 @@ def train(model_name: str, save_model_name: str, input_path:str, feature_method:
     input_file = os.path.join(input_path, config.PREPROCESS_OPENSMILE_FILENAME)
 
     if(feature_method == 'o'):
-        x_train, x_test, y_train, y_test = of.load_feature(feature_path = input_file, train = True)
+        x_train, x_test, y_train, y_test = of.load_feature(feature_path = input_file, train = True, scaler_path=input_path)
 
     elif(feature_method == 'l'):
-        x_train, x_test, y_train, y_test = lf.load_feature(feature_path = input_file, train = True)
+        x_train, x_test, y_train, y_test = lf.load_feature(feature_path = input_file, train = True, scaler_path=input_path)
 
     # 创建模型
     if(model_name == 'svm'):
@@ -56,8 +56,7 @@ def train(model_name: str, save_model_name: str, input_path:str, feature_method:
     model.evaluate(x_test, y_test)
 
     # 保存训练好的模型
-    print('saving model at ' + save_model_name)
-    model.save_model(save_model_name)
+    model.save_model(save_model_name, model_path=input_path)
     # print("Donezo")
 
 

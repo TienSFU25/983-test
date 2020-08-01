@@ -47,7 +47,7 @@ load_feature(): 从 .csv 文件中加载特征数据
     训练数据、测试数据和对应的标签
 '''
 
-def load_feature(feature_path: str, train: bool):
+def load_feature(feature_path: str, train: bool, scaler_path: str):
     # 加载特征数据
     df = pd.read_csv(feature_path)
     features = [str(i) for i in range(1, config.FEATURE_NUM[config.CONFIG] + 1)]
@@ -59,7 +59,7 @@ def load_feature(feature_path: str, train: bool):
         # 标准化数据 
         scaler = StandardScaler().fit(X)
         # 保存标准化模型
-        joblib.dump(scaler, config.SAVE_PATH + 'SCALER_OPENSMILE.m')
+        joblib.dump(scaler, os.path.join(scaler_path, 'SCALER_OPENSMILE.m'))
         X = scaler.transform(X)
 
         # 划分训练集和测试集
@@ -68,10 +68,9 @@ def load_feature(feature_path: str, train: bool):
     else:
         # 标准化数据
         # 加载标准化模型
-        scaler = joblib.load(config.LOAD_PATH + 'SCALER_OPENSMILE.m')
+        scaler = joblib.load(os.path.join(scaler_path, 'SCALER_OPENSMILE.m'))
         X = scaler.transform(X)
         return X
-
 
 '''
 get_data(): 
@@ -88,7 +87,7 @@ get_data():
 '''
 
 # Opensmile 提取特征
-# path is directory, filename is "X.csv"
+# data path is location of .wav file, feature path is directory, filename is "X.csv"
 def get_data(data_path: str, feature_path: str, feature_filename: str, train: bool):
     feature_file = os.path.join(feature_path, feature_filename)
     writer = csv.writer(open(feature_file, 'w'))
@@ -139,4 +138,4 @@ def get_data(data_path: str, feature_path: str, feature_filename: str, train: bo
     # 一个玄学 bug 的暂时性解决方案
     # 这里无法直接加载除了 IS10_paraling 以外的其他特征集的预测数据特征，非常玄学
     if(train == True):
-        return load_feature(feature_file, train = train)
+        return load_feature(feature_file, train = train, scaler_path=feature_path)

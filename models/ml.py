@@ -1,7 +1,8 @@
 import pickle
 import sys
-
+import os
 import numpy
+
 from sklearn.neural_network import MLPClassifier
 from sklearn.svm import SVC
 from .common import Common_Model
@@ -14,10 +15,10 @@ class MLModel(Common_Model):
         super(MLModel, self).__init__(**params)
 
     '''
-    save_model(): 将模型以 model_name 命名存储在 config.SAVE_PATH 路径下
+    save_model(): 将模型以 model_name 命名存储在 save path 路径下
     '''
-    def save_model(self, model_name):
-        save_path = config.SAVE_PATH + model_name + '.m'
+    def save_model(self, model_name, model_path):
+        save_path = os.path.join(model_path, model_name + '.m')
         pickle.dump(self.model, open(save_path, "wb"))
 
     '''

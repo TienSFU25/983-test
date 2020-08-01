@@ -151,7 +151,7 @@ load_feature(): 从 csv 加载特征数据
     训练数据、测试数据和对应的标签
 '''
 
-def load_feature(feature_path: str, train: bool):
+def load_feature(feature_path: str, train: bool, scaler_path: str):
 
     features = pd.DataFrame(data = joblib.load(feature_path), columns = ['file_name', 'features', 'emotion'])
 
@@ -162,7 +162,7 @@ def load_feature(feature_path: str, train: bool):
         # 标准化数据 
         scaler = StandardScaler().fit(X)
         # 保存标准化模型
-        joblib.dump(scaler, config.SAVE_PATH + 'SCALER_LIBROSA.m')
+        joblib.dump(scaler, os.path.join(scaler_path, 'SCALER_LIBROSA.m'))
         X = scaler.transform(X)
 
         x_train, x_test, y_train, y_test = train_test_split(X, Y, test_size = 0.2, random_state = 42)
@@ -171,7 +171,7 @@ def load_feature(feature_path: str, train: bool):
     else:
         # 标准化数据
         # 加载标准化模型
-        scaler = joblib.load(config.LOAD_PATH + 'SCALER_LIBROSA.m')
+        scaler = joblib.load(os.path.join(scaler_path, 'SCALER_LIBROSA.m'))
         X = scaler.transform(X)
         return X
 
@@ -220,4 +220,7 @@ def get_data(data_path: str, feature_path: str, train: bool):
     mfcc_pd = pd.DataFrame(data = mfcc_data, columns = cols)
     pickle.dump(mfcc_data, open(feature_path, 'wb'))
     
-    return load_feature(feature_path, train = train)
+    # BIG QUESTION MARK HERE
+    # just put the scaler file in same directory as location of csv file
+    scaler_path = os.path.join(feature_path, '..')
+    return load_feature(feature_path, train = train, scaler_path=scaler_path)
