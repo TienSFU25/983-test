@@ -72,6 +72,19 @@ def load_feature(feature_path: str, train: bool, scaler_path: str):
         X = scaler.transform(X)
         return X
 
+def load_from_csv(feature_path: str, scaler_path: str = ''):
+    df = pd.read_csv(feature_path)
+    features = [str(i) for i in range(1, config.FEATURE_NUM[config.CONFIG] + 1)]
+
+    X = df.loc[:,features].values
+    Y = df.loc[:,'label'].values
+
+    if scaler_path != '':
+        scaler = joblib.load(os.path.join(scaler_path, 'SCALER_OPENSMILE.m'))
+        X = scaler.transform(X)
+
+    return (X, Y)
+
 '''
 get_data(): 
     提取所有音频的特征: 遍历所有文件夹, 读取每个文件夹中的音频, 提取每个音频的特征，把所有特征保存在 feature_path 中

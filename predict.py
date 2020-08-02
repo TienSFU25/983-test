@@ -19,7 +19,7 @@ predict(): 预测音频情感
 
 输出: 预测结果和置信概率
 '''
-def predict(model, model_name: str, file_path: str, x: str, out_path: str, feature_method: str = 'o'):
+def predict(model, model_name: str, file_path: str, scaler_path: str, out_path: str, feature_method: str = 'o'):
     Path(out_path).mkdir(parents=True, exist_ok=True)
 
     file_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), file_path))
@@ -31,16 +31,13 @@ def predict(model, model_name: str, file_path: str, x: str, out_path: str, featu
     if(feature_method == 'o'):
         # 一个玄学 bug 的暂时性解决方案
         of.get_data(data_path=file_path, feature_path=out_path, feature_filename=temp_filename, train=False)
-        test_feature = of.load_feature(temp_path, train = False, scaler_path=model_path)
+        test_feature = of.load_feature(temp_path, train = False, scaler_path=scaler_path)
     elif(feature_method == 'l'):
         test_feature = lf.get_data(file_path, temp_path, train = False)
     
     if(model_name == 'lstm'):
         # 二维数组转三维（samples, time_steps, input_dim）
         test_feature = np.reshape(test_feature, (test_feature.shape[0], 1, test_feature.shape[1]))
-    
-    # print(model.summary())
-    # print("Test feature shape is", test_feature.shape)
 
     result = model.predict(test_feature)
     if(model_name == 'lstm'):
@@ -58,7 +55,7 @@ if __name__ == '__main__':
 
     # 加载模型
     model = load_model(load_model_name = opt.model_name, model_name = opt.model_type, model_path=opt.in_path)
-    predict(model, model_name = opt.model_type, file_path = opt.audio, model_path=opt.in_path, out_path=opt.out_path, feature_method = opt.feature)
+    predict(model, model_name = opt.model_type, file_path = opt.audio, scaler_path=opt.in_path, out_path=opt.out_path, feature_method = opt.feature)
 
     # model = load_model(load_model_name = "LSTM_OPENSMILE", model_name = "lstm")
     # predict(model, model_name = "lstm", file_path = 'test/angry.wav', feature_method = 'l')
