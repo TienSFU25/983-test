@@ -21,5 +21,4 @@ if __name__ == '__main__':
         of.get_data(in_path, out_path, config.PREPROCESS_OPENSMILE_FILENAME, train = True)
 
     elif(feat_method == 'l'):
-        feature_path = os.path.join(out_path, config.PREPROCESS_OPENSMILE_FILENAME)
         lf.get_data(in_path, out_path, train = True)

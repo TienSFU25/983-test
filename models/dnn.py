@@ -5,7 +5,7 @@ import keras
 import os
 
 from keras import Sequential
-from keras.layers import LSTM as KERAS_LSTM, Dense, Dropout
+from keras.layers import LSTM as KERAS_LSTM, Dense, Dropout, Flatten
 from .common import Common_Model
 from misc.utils import plotCurve
 from config import config
@@ -25,7 +25,7 @@ class DNN_Model(Common_Model):
         self.model = Sequential()
         self.make_model()
         self.model.add(Dense(num_classes, activation = 'softmax'))
-        self.model.compile(loss = 'binary_crossentropy', optimizer = 'adam', metrics = ['accuracy'])
+        self.model.compile(loss = 'categorical_crossentropy', optimizer = 'adam', metrics = ['accuracy'])
         print(self.model.summary(), file = sys.stderr)
 
     '''
@@ -107,8 +107,20 @@ class LSTM_Model(DNN_Model):
         super(LSTM_Model, self).__init__(**params)
 
     def make_model(self):
+        print("shitty shape is", (1, self.input_shape))
         self.model.add(KERAS_LSTM(128, input_shape=(1, self.input_shape)))
         self.model.add(Dropout(0.5))
         self.model.add(Dense(32, activation='relu'))
         # self.model.add(Dense(16, activation='tanh'))
         
+class Bomay_Model(DNN_Model):
+    def __init__(self, **params):
+        params['name'] = 'Bomay'
+        super(Bomay_Model, self).__init__(**params)
+
+    def make_model(self):
+        self.model.add(Dense(64, activation='relu', input_shape=(1, self.input_shape)))
+        self.model.add(Flatten())
+        self.model.add(Dropout(0.5))
+        self.model.add(Dense(32, activation='relu'))
+        # self.model.add(Dense(16, activation='tanh'))

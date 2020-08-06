@@ -152,7 +152,6 @@ load_feature(): 从 csv 加载特征数据
 '''
 
 def load_feature(feature_path: str, train: bool, scaler_path: str):
-
     features = pd.DataFrame(data = joblib.load(feature_path), columns = ['file_name', 'features', 'emotion'])
 
     X = list(features['features'])
@@ -191,34 +190,31 @@ get_data():
 '''
 # data_path: str, feature_path: str, feature_filename: str, train: bool):
 def get_data(data_path: str, feature_path: str, train: bool):
+    mfcc_data = []
     
-    if(train == True):
+    if train:
         files = get_data_path(data_path)
         max_, min_ = get_max_min(files)
 
-        mfcc_data = []
-        for file in files:
-            label = re.findall(".*-(.*)-.*", file)[0]
+        for label in os.listdir(data_path):
+            subpath = os.path.join(data_path, label)
 
-            # 三分类
-            # if(label == "sad" or label == "neutral"):
-            #     label = "neutral"
-            # elif(label == "angry" or label == "fear"):
-            #     label = "negative"
-            # elif(label == "happy" or label == "surprise"):
-            #     label = "positive"
+            for file in os.listdir(subpath):
+                file_path = os.path.join(subpath, file)
+                # label = re.findall(".*-(.*)-.*", file)[0]
 
-            features = extract_features(file, max_)
-            mfcc_data.append([file, features, config.CLASS_LABELS.index(label)])
+                features = extract_features(file_path, max_)
+                emotion = config.CLASS_LABELS.index(label)
+                mfcc_data.append([file_path, features, emotion])
 
     else:
         features = extract_features(data_path)
         mfcc_data = [[data_path, features, -1]]
 
-
     cols = ['file_name', 'features', 'emotion']
     mfcc_pd = pd.DataFrame(data = mfcc_data, columns = cols)
-    pickle.dump(mfcc_data, open(feature_path, 'wb'))
+    librosa_file_path = os.path.join(feature_path, 'preprocess.csv')
+    pickle.dump(mfcc_pd, open(librosa_file_path, 'wb'))
     
     # BIG QUESTION MARK HERE
     # just put the scaler file in same directory as location of csv file
