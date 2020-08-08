@@ -14,6 +14,14 @@ def parse_prepro():
         help = "The method for features extracting: use 'o' to use opensmile or use 'l' to use librosa.")
 
     parser.add_argument(
+        '-s', 
+        '--feature-set', 
+        type = str, 
+        default = 'IS10_paraling',
+        dest = 'feature_set', 
+        help = "Which IS (09, 10, 11, 12, 13) Featureset")
+
+    parser.add_argument(
         '-i', 
         '--input-path', 
         type = str, 
@@ -61,6 +69,14 @@ def parse_train():
         default = 'o',
         dest = 'feature', 
         help = "The method for features extracting: 'o' for opensmile, 'l' for librosa.")
+
+    parser.add_argument(
+        '-s', 
+        '--feature-set', 
+        type = str, 
+        default = 'IS10_paraling',
+        dest = 'feature_set', 
+        help = "Which IS (09, 10, 11, 12, 13) Featureset")
 
     parser.add_argument(
         '-i', 
@@ -121,11 +137,19 @@ def parse_pred():
 
     parser.add_argument(
         '-o', 
-        '--out-path', 
+        '--out-path',
         type = str, 
         default = 'nobody-gives-a-shit/',
         dest = 'out_path', 
         help = "Where to write intermediate features. Find way to put this in temp folder")
+
+    parser.add_argument(
+        '-s', 
+        '--feature-set', 
+        type = str, 
+        default = 'IS10_paraling',
+        dest = 'feature_set', 
+        help = "Which IS (09, 10, 11, 12, 13) Featureset")
 
     args = parser.parse_args()
     return args

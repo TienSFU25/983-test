@@ -14,7 +14,7 @@ from config import config
 
 
 '''
-get_feature_opensmile(): Opensmile 提取一个音频的特征
+_get_feature_opensmile(): Opensmile 提取一个音频的特征
 
 输入:
     file_path: 音频路径
@@ -23,17 +23,17 @@ get_feature_opensmile(): Opensmile 提取一个音频的特征
     该音频的特征向量
 '''
 
-def get_feature_opensmile(filepath: str, out_path: str):
+def _get_feature_opensmile(filepath: str, out_path: str, feature_set: str):
     # Opensmile 命令
     BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir))
-    cmd = 'cd ' + config.OPENSMILE_PATH + ' && ./SMILExtract -C config/' + config.CONFIG + '.conf -I "' + filepath + '" -O ' + BASE_DIR + '/' + out_path + 'single_feature.csv'
+    cmd = 'cd ' + config.OPENSMILE_PATH + ' && ./SMILExtract -C config/' + feature_set + '.conf -I "' + filepath + '" -O ' + BASE_DIR + '/' + out_path + 'single_feature.csv'
     print("Opensmile cmd: ", cmd)
     os.system(cmd)
     
     reader = csv.reader(open(BASE_DIR + '/' + out_path + 'single_feature.csv','r'))
     rows = [row for row in reader]
     last_line = rows[-1]
-    return last_line[1: config.FEATURE_NUM[config.CONFIG] + 1]
+    return last_line[1: config.FEATURE_NUM[feature_set] + 1]
 
 
 '''
@@ -47,10 +47,10 @@ load_feature(): 从 .csv 文件中加载特征数据
     训练数据、测试数据和对应的标签
 '''
 
-def load_feature(feature_path: str, train: bool, scaler_path: str):
+def load_feature(feature_path: str, train: bool, scaler_path: str, feature_set: str):
     # 加载特征数据
     df = pd.read_csv(feature_path)
-    features = [str(i) for i in range(1, config.FEATURE_NUM[config.CONFIG] + 1)]
+    features = [str(i) for i in range(1, config.FEATURE_NUM[feature_set] + 1)]
 
     X = df.loc[:,features].values
     Y = df.loc[:,'label'].values
@@ -72,9 +72,9 @@ def load_feature(feature_path: str, train: bool, scaler_path: str):
         X = scaler.transform(X)
         return X
 
-def load_from_csv(feature_path: str, scaler_path: str = ''):
+def load_from_csv(feature_path: str, scaler_path: str = '', feature_set: str = 'IS10_paraling'):
     df = pd.read_csv(feature_path)
-    features = [str(i) for i in range(1, config.FEATURE_NUM[config.CONFIG] + 1)]
+    features = [str(i) for i in range(1, config.FEATURE_NUM[feature_set] + 1)]
 
     X = df.loc[:,features].values
     Y = df.loc[:,'label'].values
@@ -101,11 +101,11 @@ get_data():
 
 # Opensmile 提取特征
 # data path is location of .wav file, feature path is directory, filename is "X.csv"
-def get_data(data_path: str, feature_path: str, feature_filename: str, train: bool):
+def get_data(data_path: str, feature_path: str, feature_filename: str, train: bool, feature_set: str):
     feature_file = os.path.join(feature_path, feature_filename)
     writer = csv.writer(open(feature_file, 'w'))
     first_row = ['label']
-    for i in range(1, config.FEATURE_NUM[config.CONFIG] + 1):
+    for i in range(1, config.FEATURE_NUM[feature_set] + 1):
         first_row.append(str(i))
     writer.writerow(first_row)
 
@@ -132,7 +132,7 @@ def get_data(data_path: str, feature_path: str, feature_filename: str, train: bo
                 filepath = os.getcwd() + '/' + filename
                 
                 # 提取该音频的特征
-                feature_vector = get_feature_opensmile(filepath, feature_path)
+                feature_vector = _get_feature_opensmile(filepath, feature_path, feature_set)
                 feature_vector.insert(0, label)
                 # 把每个音频的特征整理到一个 csv 文件中
                 writer.writerow(feature_vector)
@@ -142,7 +142,7 @@ def get_data(data_path: str, feature_path: str, feature_filename: str, train: bo
         os.chdir(cur_dir)
     
     else:
-        feature_vector = get_feature_opensmile(data_path, feature_path)
+        feature_vector = _get_feature_opensmile(data_path, feature_path, feature_set)
         feature_vector.insert(0, '-1')
         writer.writerow(feature_vector)
 

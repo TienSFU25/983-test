@@ -10,7 +10,7 @@ class config:
     epochs = 20
 
     # Opensmile 标准特征集
-    CONFIG = 'IS10_paraling'
+    # CONFIG = 'IS10_paraling'
     # CONFIG = 'IS09_emotion'
 
     # Opensmile 安装路径

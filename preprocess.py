@@ -18,7 +18,7 @@ if __name__ == '__main__':
     Path(opt.out_path).mkdir(parents=True, exist_ok=True)
 
     if(feat_method == 'o'):
-        of.get_data(in_path, out_path, config.PREPROCESS_OPENSMILE_FILENAME, train = True)
+        of.get_data(in_path, out_path, config.PREPROCESS_OPENSMILE_FILENAME, feature_set=opt.feature_set, train = True)
 
     elif(feat_method == 'l'):
         lf.get_data(in_path, out_path, train = True)
