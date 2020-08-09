@@ -25,7 +25,7 @@ def predict(model, model_name: str, file_path: str, scaler_path: str, out_path: 
     file_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), file_path))
     play_audio(file_path)
 
-    temp_filename = "test_banana.csv"
+    temp_filename = "temp.csv"
     temp_path = os.path.join(out_path, temp_filename)
 
     if(feature_method == 'o'):
@@ -33,7 +33,7 @@ def predict(model, model_name: str, file_path: str, scaler_path: str, out_path: 
         of.get_data(data_path=file_path, feature_path=out_path, feature_filename=temp_filename, train=False, feature_set=feature_set)
         test_feature = of.load_feature(temp_path, train = False, scaler_path=scaler_path, feature_set=feature_set)
     elif(feature_method == 'l'):
-        test_feature = lf.get_data(file_path, temp_path, train = False)
+        test_feature = lf.get_data(data_path=file_path, feature_path=out_path, feature_filename=temp_filename, train = False)
     
     if(model_name == 'lstm'):
         # 二维数组转三维（samples, time_steps, input_dim）

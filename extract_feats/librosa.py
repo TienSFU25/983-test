@@ -189,7 +189,7 @@ get_data():
     train = False: 预测数据特征
 '''
 # data_path: str, feature_path: str, feature_filename: str, train: bool):
-def get_data(data_path: str, feature_path: str, train: bool):
+def get_data(data_path: str, feature_path: str, feature_filename:str, train: bool):
     mfcc_data = []
     
     if train:
@@ -213,10 +213,7 @@ def get_data(data_path: str, feature_path: str, train: bool):
 
     cols = ['file_name', 'features', 'emotion']
     mfcc_pd = pd.DataFrame(data = mfcc_data, columns = cols)
-    librosa_file_path = os.path.join(feature_path, 'preprocess.csv')
+    librosa_file_path = os.path.join(feature_path, feature_filename)
     pickle.dump(mfcc_pd, open(librosa_file_path, 'wb'))
     
-    # BIG QUESTION MARK HERE
-    # just put the scaler file in same directory as location of csv file
-    scaler_path = os.path.join(feature_path, '..')
-    return load_feature(feature_path, train = train, scaler_path=scaler_path)
+    return load_feature(librosa_file_path, train = train, scaler_path=feature_path)
