@@ -10,6 +10,7 @@ def parse_prepro():
         '--feature', 
         type = str, 
         default = 'o',
+        choices = ['o', 'l'],
         dest = 'feature', 
         help = "The method for features extracting: use 'o' to use opensmile or use 'l' to use librosa.")
 
@@ -51,6 +52,7 @@ def parse_train():
         '--model_type', 
         type = str, 
         default = 'lstm',
+        choices = ['lstm', 'basic'],
         dest = 'model_type', 
         help = "The type of model (svm, mlp or lstm).")
 
@@ -67,6 +69,7 @@ def parse_train():
         '--feature', 
         type = str, 
         default = 'o',
+        choices = ['o', 'l'],
         dest = 'feature', 
         help = "The method for features extracting: 'o' for opensmile, 'l' for librosa.")
 
@@ -100,6 +103,7 @@ def parse_pred():
         '--model_type', 
         type = str, 
         default = 'lstm',
+        choices = ['lstm', 'basic'],
         dest = 'model_type', 
         help = "The type of model (svm, mlp or lstm).")
 
@@ -116,6 +120,7 @@ def parse_pred():
         '--feature', 
         type = str, 
         default = 'o',
+        choices = ['o', 'l'],
         dest = 'feature', 
         help = "The method for features extracting: 'o' for opensmile, 'l' for librosa.")
 
