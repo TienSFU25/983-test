@@ -4,7 +4,8 @@ class config:
     # 情感标签
     # CLASS_LABELS = ("angry", "fear", "happy", "neutral", "sad", "surprise")
 
-    CLASS_LABELS = ("neutral", "calm", "happy", "sad", "angry", "fear", "disgust", "surprise")
+    # CLASS_LABELS = ("neutral", "calm", "happy", "sad", "angry", "fear", "disgust", "surprise")
+    CLASS_LABELS = ("low-arousal", "positive-high-arousal", "negative-high-arousal")
 
     # LSTM 的训练 epoch 数
     epochs = 20
@@ -26,19 +27,3 @@ class config:
     }
 
     PREPROCESS_OPENSMILE_FILENAME = 'preprocess.csv'
-
-    # 特征存储路径
-    # FFEATURE_PATH = 'extracted-features/'
-
-    # # WILL BE OVERWRITTEN
-    # TRAIN_FEATURE_PATH_OPENSMILE = FEATURE_PATH + 'train_banana.csv'
-    # PREDICT_FEATURE_PATH_OPENSMILE = FEATURE_PATH + 'test_banana.csv'
-
-    # 训练特征存储路径（librosa）
-    # TRAIN_FEATURE_PATH_LIBROSA = FFEATURE_PATH + 'train_librosa_casia.p'
-    # 预测特征存储路径（librosa）
-    # PREDICT_FEATURE_PATH_LIBROSA = FFEATURE_PATH + 'test_librosa_casia.p'
-
-    # 模型存储路径
-    # SAVE_PATH = 'ravdess-joe/'
-    # LOAD_PATH = 'ravdess-joe/'
