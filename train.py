@@ -36,12 +36,14 @@ def train(model_name: str, save_model_name: str, input_path:str, feature_set: st
         model = SVM_Model()
     elif(model_name == 'mlp'):
         model = MLP_Model()
-    elif(model_name == 'lstm' or model_name == 'bomay'):
+    elif(model_name == 'lstm' or model_name == 'dense'):
         y_train = np_utils.to_categorical(y_train)
         y_val = np_utils.to_categorical(y_test)
 
-        # model = LSTM_Model(input_shape = x_train.shape[1], num_classes = len(config.CLASS_LABELS))
-        model = Bomay_Model(input_shape = x_train.shape[1], num_classes = len(config.CLASS_LABELS))
+        if model_name == 'lstm':
+            model = LSTM_Model(input_shape = x_train.shape[1], num_classes = len(config.CLASS_LABELS))
+        else:
+            model = Bomay_Model(input_shape = x_train.shape[1], num_classes = len(config.CLASS_LABELS))
 
         x_train = np.reshape(x_train, (x_train.shape[0], 1, x_train.shape[1]))
         x_test = np.reshape(x_test, (x_test.shape[0], 1, x_test.shape[1]))
@@ -50,7 +52,7 @@ def train(model_name: str, save_model_name: str, input_path:str, feature_set: st
     print('---------------------------- Start Training ----------------------------')
     if(model_name == 'svm' or model_name == 'mlp'):
         model.train(x_train, y_train)
-    elif(model_name == 'lstm' or model_name == 'bomay'):
+    elif(model_name == 'lstm' or model_name == 'dense'):
         model.train(x_train, y_train, x_test, y_val, n_epochs = config.epochs)
     print('------------------------------ End Training ------------------------------')
 

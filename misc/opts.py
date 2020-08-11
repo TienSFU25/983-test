@@ -52,7 +52,7 @@ def parse_train():
         '--model_type', 
         type = str, 
         default = 'lstm',
-        choices = ['lstm', 'basic'],
+        choices = ['lstm', 'dense'],
         dest = 'model_type', 
         help = "The type of model (svm, mlp or lstm).")
 
@@ -103,7 +103,7 @@ def parse_pred():
         '--model_type', 
         type = str, 
         default = 'lstm',
-        choices = ['lstm', 'basic'],
+        choices = ['lstm', 'dense'],
         dest = 'model_type', 
         help = "The type of model (svm, mlp or lstm).")
 
