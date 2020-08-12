@@ -25,12 +25,14 @@ _get_feature_opensmile(): Opensmile 提取一个音频的特征
 
 def _get_feature_opensmile(filepath: str, out_path: str, feature_set: str):
     # Opensmile 命令
-    BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir))
-    cmd = 'cd ' + config.OPENSMILE_PATH + ' && ./SMILExtract -C config/' + feature_set + '.conf -I "' + filepath + '" -O ' + BASE_DIR + '/' + out_path + 'single_feature.csv'
+    # BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir))
+    feature_dir = os.path.abspath(os.path.join(out_path, 'single_feature.csv'))    
+
+    cmd = 'cd ' + config.OPENSMILE_PATH + ' && ./SMILExtract -C config/' + feature_set + '.conf -I "' + filepath + '" -O ' + feature_dir
     print("Opensmile cmd: ", cmd)
     os.system(cmd)
     
-    reader = csv.reader(open(BASE_DIR + '/' + out_path + 'single_feature.csv','r'))
+    reader = csv.reader(open(feature_dir, 'r'))
     rows = [row for row in reader]
     last_line = rows[-1]
     return last_line[1: config.FEATURE_NUM[feature_set] + 1]
