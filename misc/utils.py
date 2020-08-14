@@ -25,7 +25,7 @@ load_model():
 '''
 def load_model(load_model_name: str, model_name: str, model_path: str):
     
-    if(model_name == 'lstm'):
+    if(model_name == 'lstm' or model_name == 'basic'):
         # 加载json
         model_h5_path = os.path.join(model_path, load_model_name + '.h5')
         model_json_path = os.path.join(model_path, load_model_name + '.json')
